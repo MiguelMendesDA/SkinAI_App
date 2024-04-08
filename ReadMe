@@ -1,0 +1,54 @@
+## Skin Cancer Detection System
+This Flask application is designed to detect skin cancer based on user input and uploaded images. It utilizes machine learning models to make predictions about skin lesions and provides users with information about the likelihood of malignancy.
+
+## Features
+
+- User authentication system: Users can register, log in, and log out securely.
+- Skin lesion prediction: Users can input their age, sex, anatomical site, and upload an image of a skin lesion to receive predictions about its malignancy.
+- Comparison of skin lesions: Users can compare the predictions of skin lesions to track changes over time.
+- Profile management: Users can upload and manage their profile photo.
+- Password recovery: Users can reset their password if forgotten.
+
+Technologies Used:
+
+- Flask: Python web framework used for building the application.
+- TensorFlow: Machine learning library used for skin lesion prediction.
+- MySQL: Database management system used for storing user data and prediction results.
+- HTML/CSS: Frontend languages used for designing and styling the user interface.
+- JavaScript: Frontend language used for client-side interactions.
+- Other Python libraries: NumPy, OpenCV, Pillow, etc.
+
+## Installation
+
+1. Clone the repository
+   
+   git clone https://github.com/MiguelMendesDA/SkinAI_App
+
+2. Navigate to the project directory
+
+3. Install dependencies
+
+pip install -r requirements.txt
+
+4. Run the app using the following command:
+flask run
+
+Before run the app it's important:
+- Create a .env file in the root directory.
+Add the necessary environment variables like DB_HOST, DB_DATABASE, SECRET_KEY, etc.
+Set up the database:
+
+- Create a MySQL database.
+Update the database connection details in the .env file.
+Run the SQL scripts provided in the database_scripts directory to create the necessary 
+
+## Acknowledgments
+
+I would like to extend my sincere gratitude to The International Skin Imaging Collaboration (ISIC) for providing access to their repository of skin imaging data. The availability of this dataset has been instrumental in the development and training of the machine learning models used in this application. Without their contributions, this project would not have been possible.
+
+
+## Contact
+Miguel Mendes
+
+Email: miguelmendesdataanalyst@gmail.com
+LinkedIn: (www.linkedin.com/in/miguelmendes-healthcare-dataanalyst)
