@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Input and Prediction Page</title>
+    <!-- Adicionar o arquivo CSS do Bootstrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Adicionar o arquivo CSS -->
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+    <style>
+        .sidebar {
+            height: 100vh; /* Definir altura de 100% da viewport */
+            overflow-y: auto; /* Adicionar rolagem vertical se o conteúdo exceder a altura */
+            text-align: center;
+            padding-top: 100px;
+        }
+        .main-content {
+            margin-left: 300px; 
+        }
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-3 sidebar bg-secondary">
+                <div class = "text-center"></div>
+                    <img src="{{ url_for('static', filename='logo.jpeg') }}" alt="Logo"style="width: 100px;">
+                <div class ="sidebar-text text-white">
+                    <p></p>
+                    <h4>Skin AI App</h4>
+                </div>
+                <h2>Menu</h2>
+                <ul class="list-unstyled">
+                    <li><a href="/" class="text-white">Home</a></li>
+                    <li><a href="/logout" class="text-white">Logout</a></li>
+                </ul>
+            </div>
+    
+    <!-- Conteúdo principal -->
+    <div class="container">
+        <div class="content">
+            <h1 class="mt-5">User Input and Prediction Page</h1>
+            <h2>User Input Form</h2>
+            <form id="input-form" action="/process_input" method="post" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label for="age">Age:</label>
+                    <input type="text" class="form-control" id="age" name="age">
+                </div>
+                <div class="form-group">
+                    <label for="sex">Sex:</label>
+                    <select class="form-control" id="sex" name="sex">
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="anatomical_site">Anatomical Site:</label>
+                    <select class="form-control" id="anatomical_site" name="anatomical_site">
+                        <option value="anatomical_site_anterior torso">Anterior Torso</option>
+                        <option value="anatomical_site_head/neck">Head/Neck</option>
+                        <option value="anatomical_site_lateral torso">Lateral Torso</option>
+                        <option value="anatomical_site_lower extremity">Lower Extremity</option>
+                        <option value="anatomical_site_oral/genital">Oral/Genital</option>
+                        <option value="anatomical_site_palms/soles">Palms/Soles</option>
+                        <option value="anatomical_site_posterior torso">Posterior Torso</option>
+                        <option value="anatomical_site_upper extremity">Upper Extremity</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="image">Image:</label>
+                    <input type="file" class="form-control-file" id="image" name="image">
+                    <p></p>
+                    <p>For an efficient assessment of the lesion, the image should be clear and obtained under good lighting conditions and as close as possible to the lesion.</p>
+                    <p> Accepted formats include: 'png', 'jpg', 'jpeg', 'gif'.</p>
+                </div>
+                <button type="button" class="btn btn-primary" id="submit-btn">Submit</button>
+                <!-- Advice if requirement is not introduced -->
+                <p id="warning-message" class="text-danger hidden">Please fill in all the required fields.</p>
+            </form>
+            {% if error %}
+                <p class="text-danger">{{ error }}</p>
+            {% endif %}
+        </div>
+    </div>
+</body>
+<!-- Adicionar o arquivo JavaScript -->
+<script>
+    document.getElementById('submit-btn').addEventListener('click', function() {
+        var age = document.getElementById('age').value.trim();
+        var sex = document.getElementById('sex').value.trim();
+        var anatomical_site = document.getElementById('anatomical_site').value.trim();
+        var image = document.getElementById('image').value.trim();
+
+        if (!age || !sex || !anatomical_site || !image) {
+            document.getElementById('warning-message').classList.remove('hidden');
+        } else {
+            document.getElementById('input-form').submit();
+        }
+    });
+</script>
+</html>

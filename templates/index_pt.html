@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meu Site - Português</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+    <script src="{{ url_for('static', filename='language_switch.js') }}"></script>
+</head>
+<body>
+    <!-- Barra lateral -->
+    <div class="sidebar">
+        <h2>Menu</h2>
+        <ul>
+            <li><a href="#">Início</a></li>
+            <li><a href="#">Sobre</a></li>
+            <li><a href="#">Contato</a></li>
+        </ul>
+    </div>
+
+    <!-- Conteúdo principal -->
+    <div class="content">
+        <h1>Bem-vindo ao Skin AI App</h1>
+        <p>Seu companheiro confiável para avaliação de lesões cutâneas.<p>
+        <p>Usando tecnologia avançada de IA, fornecemos previsões precisas para determinar se uma lesão é maligna ou benigna.
+            Tenha tranquilidade com avaliações rápidas e precisas, capacitando a gestão proativa da saúde da pele. <p>
+        <p>Experimente o futuro da avaliação da pele com Skin AI App hoje.</p>
+
+        <p>O Skin AI App é seu parceiro proativo na identificação de possíveis problemas de pele antes que eles se agravem.
+            Com tecnologia de IA de ponta, fornecemos alertas oportunos para detecção precoce, capacitando você a agir rapidamente para uma saúde ótima da pele.<p>
+        <p>Mantenha-se à frente com o Skin AIApp.</p>
+
+        <!-- Restante do conteúdo principal aqui -->
+    </div>
+
+    <!-- Scripts JavaScript -->
+    <script>
+        function changeLanguage(lang) {
+            window.location.href = `index_${lang}.html`;
+        }
+    </script>
+</body>
+</html>

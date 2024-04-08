@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Result</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+    <style>
+        .sidebar {
+            height: 100vh;
+            overflow-y: auto; 
+            text-align: center;
+            padding-top: 100px;
+        }
+        .main-content {
+            margin-left: 300px; 
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-3 sidebar bg-secondary">
+                <div class = "text-center"></div>
+                    <img src="{{ url_for('static', filename='logo.jpeg') }}" alt="Logo"style="width: 100px;">
+                <div class ="sidebar-text text-white">
+                    <p></p>
+                    <h4>Skin AI App</h4>
+                </div>
+                <h2>Menu</h2>
+                <ul class="list-unstyled">
+                    <li><a href="/" class="text-white">Home</a></li>
+                    <li><a href="/prediction" class="text-white">Prediction</a></li>
+                    <li><a href="/logout" class="text-white">Logout</a></li>
+                </ul>
+            </div>
+    </div>
+    <div class="container">
+        <div class="content">
+            <h1 class="mt-5">Result</h1>
+            <p><strong>The predicted probability is: {{ prediction }}</strong></p>
+            <p>{{ interpretation }}</p>
+            <p>You can also compare the analyzed image with a previous image of the same lesion by clicking the button below.</p>
+            <p>For a more efficient comparison, it is important that the conditions of the image are as similar as possible, in terms of brightness and perspective.</p>
+            <a href="/compare_predictions" class="btn btn-primary">Compare Predictions</a>
+            
+
+        </div>
+    </div>
+</body>
+</html>
+

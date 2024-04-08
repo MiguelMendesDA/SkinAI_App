@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Compare Predictions</title>
+    <!-- Adicionar o arquivo CSS do Bootstrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Adicionar script JavaScript -->
+    <script>
+        function hideSelect() {
+            document.getElementById("select-form").style.display = "none";
+            document.getElementById("select-button").style.display = "none";
+            document.getElementById("error-message").style.display = "block"; // Mostrar mensagem de erro se necessário
+        }
+
+        function compareAndRedirect() {
+            // Encontrar o valor do campo 'previous_prediction'
+            var selectedPredictionId = document.getElementById("previous_prediction").value;
+            
+            // Criar um objeto FormData para enviar dados do formulário
+            var formData = new FormData();
+            formData.append('previous_prediction', selectedPredictionId);
+    
+            // Enviar uma solicitação POST para a rota "/comparison_result" com os dados do formulário
+            fetch("/comparison_result", {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Redirecionar para a rota 'comparison_result'
+                window.location.href = "/comparison_result";
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        }
+    </script>
+    <style>
+        .sidebar {
+            height: 100vh; /* Definir altura de 100% da viewport */
+            overflow-y: auto; /* Adicionar rolagem vertical se o conteúdo exceder a altura */
+            text-align: center;
+            padding-top: 100px;
+        }
+        .main-content {
+            margin-left: 300px; 
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-3 sidebar bg-secondary">
+                <div class = "text-center"></div>
+                    <img src="{{ url_for('static', filename='logo.jpeg') }}" alt="Logo"style="width: 100px;">
+                <div class ="sidebar-text text-white">
+                    <p></p>
+                    <h4>Skin AI App</h4>
+                </div>
+                <h2 class="text-white">Menu</h2>
+                <ul class="list-unstyled">
+                    <li><a href="/" class="text-white">Home</a></li>
+                    <li><a href="/prediction" class="text-white">New Prediction</a></li>
+                </ul>
+            </div>
+            <div class="col-md-9">
+                <h1>Compare Predictions</h1>
+                
+                <!-- Mensagem de erro -->
+                <div id="error-message" class="alert alert-danger" style="display: none;">No last prediction available or no selected previous prediction. Cannot compare.</div>
+                
+                <!-- Formulário de seleção de previsão anterior -->
+                <h2>Select Previous Prediction</h2>
+                <form id="select-form" action="/compare_predictions" method="post" onsubmit="hideSelect()">
+                    <div class="form-group">
+                        <label for="previous_prediction">Previous Prediction:</label>
+                        <select id="previous_prediction" name="previous_prediction" class="form-control">
+                            {% if previous_predictions %}
+                                {% for prediction in previous_predictions %}
+                                    <option value="{{ prediction.id }}">{{ prediction.anatomical_site }} - {{ prediction.prediction_result }} - {{ prediction.created_at }}</option>
+                                {% endfor %}
+                            {% else %}
+                                <option value="" disabled>No previous predictions available</option>
+                            {% endif %}
+                        </select>
+                    </div>
+                    <!-- Alteração: Botão "Select" -->
+                    <button id="select-button" type="submit" class="btn btn-primary mt-3">Select</button>
+                </form>
+
+                <!-- Detalhes da previsão selecionada -->
+                <h2>Details of Selected Previous Prediction</h2>
+                {% if selected_prediction %}
+                    <p>Anatomical Site: {{ selected_prediction.anatomical_site }}</p>
+                    <p>Prediction Result: {{ selected_prediction.prediction_result }}</p>
+                    <!-- Adicionar a imagem -->
+                    <img src="data:image/jpeg;base64,{{ selected_prediction.original_image_base64 }}" alt="Selected Prediction Image" style="width: 200px; height: 200px;">
+                {% else %}
+                    <p>No prediction selected.</p>
+                {% endif %}
+                <!-- Última previsão -->
+                <h2>Last Prediction</h2>
+                {% if last_prediction %}
+                    <p>Anatomical Site: {{ last_prediction.anatomical_site }}</p>
+                    <p>Prediction Result: {{ last_prediction.prediction_result }}</p>
+                    <!-- Adicionar a imagem -->
+                    <img src="data:image/jpeg;base64,{{ last_prediction.original_image_base64 }}" alt="Last Prediction Image" style="width: 200px; height: 200px;">
+                    <div style="margin-bottom: 30px;"></div>
+                    <!-- Alteração: Botão "Compare" com evento de clique -->
+                    <button id="compare-button" class="btn btn-primary mt-3">Compare</button>
+                    <button id="back-button" class="btn btn-primary mt-3">Back to Select Previous Predictions</button>
+
+                {% else %}
+                    <p>No last prediction available.</p>
+                {% endif %}
+            </div>
+            <script>
+                document.getElementById("compare-button").addEventListener("click", function() {
+                    // Enviar uma solicitação POST para a rota "/comparison_result"
+                    fetch("/comparison_result", {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            // Inclua quaisquer dados adicionais que você deseja enviar com a solicitação
+                        })
+                    })
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Network response was not ok');
+                        }
+                        // Redirecionar para a rota '/comparison_result'
+                        window.location.href = "/comparison_result";
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                    });
+                });
+                    // Evento de clique para o botão "Back to Select Previous Predictions"
+                document.getElementById("back-button").addEventListener("click", function() {
+                    // Redirecionar de volta para a rota "/compare_predictions"
+                    window.location.href = "/compare_predictions";
+                 });
+            </script>
+        </div>
+    </div>
+</body>
+</html>
+

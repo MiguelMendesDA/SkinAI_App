@@ -1,0 +1,43 @@
+/* Estilos para a barra lateral */
+.sidebar {
+    height: 100%;
+    width: 250px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: #333;
+    padding-top: 20px;
+}
+
+.sidebar h2 {
+    color: #fff;
+    text-align: center;
+}
+
+.sidebar ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.sidebar ul li {
+    padding: 8px 16px;
+}
+
+.sidebar ul li a {
+    color: #fff;
+    text-decoration: none;
+    display: block;
+}
+
+.sidebar ul li a:hover {
+    background-color: #555;
+}
+
+/* Estilos para o conteúdo principal */
+.content {
+    margin-left: 250px; /* Ajuste a margem à largura da barra lateral */
+    padding: 20px;
+}
+
+/* Adicione mais estilos conforme necessário */

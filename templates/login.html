@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <!-- Adicionar o arquivo CSS do Bootstrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Adicionar o arquivo CSS -->
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+    <style>
+        .sidebar {
+            height: 100vh; /* Definir altura de 100% da viewport */
+            overflow-y: auto; /* Adicionar rolagem vertical se o conteúdo exceder a altura */
+            text-align: center;
+            padding-top: 100px;
+        }
+        .main-content {
+            margin-left: 300px; 
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-3 sidebar bg-secondary">
+                <div class = "text-center"></div>
+                    <img src="{{ url_for('static', filename='logo.jpeg') }}" alt="Logo"style="width: 100px;">
+                <div class ="sidebar-text text-white">
+                    <p></p>
+                    <h4>Skin AI App</h4>
+                </div>
+                <h2>Menu</h2>
+                <ul class="list-unstyled">
+                    <li><a href="/" class="text-white">Home</a></li>
+                </ul>
+            </div>
+    
+    <!-- Conteúdo principal -->
+    <div class="main-content"> <!-- Adicione uma classe para o conteúdo principal -->
+        <h1>Login</h1>
+        {% if error %}
+            <p class="error">{{ error }}</p>
+        {% endif %}
+        <form method="post" action="/login">
+            <label for="username_or_email">Username or Email:</label>
+            <input type="text" id="username_or_email" name="username_or_email" required>
+            <br>
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
+            <br>
+            <button type="submit" class="btn btn-primary">Login</button> <!-- Adicione a classe do Bootstrap para o botão -->
+        </form>
+        <br>
+        <p>Forgot your password? <a href="{{ url_for('password_recovery') }}">Reset it here</a></p>
+    </div>
+</body>
+</html>

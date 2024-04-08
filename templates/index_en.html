@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Skin AI App</title>
+    <!-- Adicionar o arquivo CSS do Bootstrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Adicionar o arquivo CSS -->
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+    <!-- Adicionar o arquivo JavaScript para troca de idioma -->
+    <script src="{{ url_for('static', filename='language_switch.js') }}"></script>
+    <style>
+        .sidebar {
+            height: 100vh; /* Definir altura de 100% da viewport */
+            overflow-y: auto; /* Adicionar rolagem vertical se o conteúdo exceder a altura */
+            text-align: center;
+            padding-top: 100px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-3 sidebar bg-secondary">
+                <div class = "text-center"></div>
+                    <img src="{{ url_for('static', filename='logo.jpeg') }}" alt="Logo"style="width: 100px;">
+                <div class ="sidebar-text text-white">
+                    <p></p>
+                    <h4>Skin AI App</h4>
+                </div>
+                <h2>Menu</h2>
+                <ul class="list-unstyled">
+                    <li><a href="#">Home</a></li>
+                    <li><a href="/login" class="login-btn">Login</a></li>
+                    <li><a href="/register" class="register-btn">Register</a></li>
+                </ul>
+            </div>
+    </div>
+
+    <!-- Conteúdo principal -->
+    <div class="content">
+        <h1>Welcome to Skin AI App</h1>
+        <p>Your reliable companion for skin lesion assessment.</p>
+        <p>Using advanced AI technology, we provide accurate predictions to determine whether a lesion is malignant or benign.
+            Gain peace of mind with quick and precise evaluations, empowering proactive skin health management.</p>
+        <p>Experience the future of skin assessment with Skin AI App today.</p>
+
+        <p>Skin AI App is your proactive partner in identifying potential skin issues before they escalate.
+            With cutting-edge AI technology, we provide timely alerts for early detection, empowering you to take swift action for optimal skin health.</p>
+        <p>Stay ahead of the curve with Skin AI App.</p>
+    </div>
+</body>
+</html>
+

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Area</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+    <style>
+        .sidebar {
+            height: 100vh;
+            overflow-y: auto;
+            text-align: center;
+            padding-top: 100px;
+        }
+        .main-content {
+            margin-left: 300px; 
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-3 sidebar bg-secondary">
+                <div class="text-center">
+                    <img src="{{ url_for('static', filename='logo.jpeg') }}" alt="Logo" style="width: 100px;">
+                    <div class="sidebar-text text-white">
+                        <p></p>
+                        <h4>Skin AI App</h4>
+                    </div>
+                </div>
+                <h2>Menu</h2>
+                <ul class="list-unstyled">
+                    <li><a href="/" class="text-white">Home</a></li>
+                    <li><a href="/logout" class="text-white">Logout</a></li>
+                </ul>
+            </div>
+            <div class="col-md-9 main-content">
+                <main role="main">
+                    <h1 class="mt-5">Welcome, {{ username }}!</h1>
+                    <!-- Adicionando a imagem de perfil -->
+                    {% if profile_photo %}
+                    <img src="data:image/jpeg;base64,{{ profile_photo }}" alt="Profile Photo" class="mt-3">
+                    {% endif %}
+
+                    <!-- Adicionando formulário de upload de foto de perfil -->
+                    <form action="/upload_profile_photo" method="post" enctype="multipart/form-data" id="profileForm">
+                        <div class="form-group mt-3">
+                            <label for="profile_photo">Profile Photo:</label>
+                            <input type="file" class="form-control-file" id="profile_photo" name="profile_photo">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Upload Photo</button>
+                        <!-- Adicionar espaço para a mensagem de feedback -->
+                        <div id="feedback" class="mt-2"></div>
+                    </form>
+                    <h2>User Information:</h2>
+                    <p>This is your user area. Feel free to explore!</p>
+                    <p>To make a prediction, click on the "Go to Prediction" button below.</p>
+                    <p>Your data security is our priority. We use state-of-the-art encryption and security measures to protect your information.</p>
+                    <a href="/prediction" class="btn btn-primary mt-3">Go to Prediction</a>
+                </main>
+            </div>
+        </div>
+    </div>
+
+    <!-- Adicionar script para validação do formulário e exibição de feedback -->
+    <script>
+        document.getElementById('profileForm').addEventListener('submit', function(event) {
+            // Verificar se foi selecionado um arquivo
+            var fileInput = document.getElementById('profile_photo');
+            if (!fileInput.value) {
+                event.preventDefault(); // Impedir envio do formulário
+                document.getElementById('feedback').innerHTML = '<div class="alert alert-danger" role="alert">Please select a file.</div>';
+                return;
+            }
+            
+            // Verificar se o arquivo selecionado é uma imagem
+            var file = fileInput.files[0];
+            var fileType = file.type;
+            if (fileType.indexOf('image') === -1) {
+                event.preventDefault(); // Impedir envio do formulário
+                document.getElementById('feedback').innerHTML = '<div class="alert alert-danger" role="alert">Please select an image file.</div>';
+                return;
+            }
+            
+            // Se tudo estiver correto, limpar a mensagem de feedback
+            document.getElementById('feedback').innerHTML = '';
+        });
+    </script>
+</body>
+</html>
