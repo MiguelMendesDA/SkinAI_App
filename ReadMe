@@ -1,5 +1,5 @@
 
-![Skin Cancer Detection](/Skin_Cancer_AI_App/static/logo.jpeg)
+![Skin Cancer Detection](/static/logo.jpeg)
 
 ## Skin Cancer Detection System
 This Flask application is designed to detect skin cancer based on user input and uploaded images. It utilizes machine learning models to make predictions about skin lesions and provides users with information about the likelihood of malignancy.
